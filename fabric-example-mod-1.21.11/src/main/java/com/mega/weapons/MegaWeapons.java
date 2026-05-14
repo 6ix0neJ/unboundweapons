@@ -19,6 +19,12 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class MegaWeapons implements ModInitializer {
+
+    public static final net.minecraft.component.ComponentType<Integer> MEGA_LEVEL = net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents.register(
+            net.minecraft.util.Identifier.of("mega_weapons", "level"),
+            builder -> builder.codec(com.mojang.serialization.Codec.INT)
+    );
+
     // This stores how many hits you've landed so the 4th hit is always a Black Flash
     private final HashMap<UUID, Integer> comboCounter = new HashMap<>();
 
@@ -82,67 +88,53 @@ public class MegaWeapons implements ModInitializer {
                 }
             }
         });
-        // MEGA SWORD: Right-Click to Dash
-        net.fabricmc.fabric.api.event.player.UseItemCallback.EVENT.register((player, world, hand) -> {
-            net.minecraft.item.ItemStack stack = player.getStackInHand(hand);
+        // 4. MEGA SWORD: Dash & Leveling System
+        UseItemCallback.EVENT.register((player, world, hand) -> {
+            ItemStack stack = player.getStackInHand(hand);
 
-            // Check if it's a Sword and player is NOT sneaking (to distinguish from Mace launch)
-            if (stack.getItem() instanceof net.minecraft.item.SwordItem && !player.isSneaking()) {
-                if (!world.isClient) {
-                    // 1. Calculate Dash Vector
-                    net.minecraft.util.math.Vec3d dash = player.getRotationVector().multiply(2.0, 0.2, 2.0);
-                    player.addVelocity(dash.x, dash.y, dash.z);
-                    player.velocityModified = true;
-
-                    // 2. Visuals: Standard blue particles (per your preference)
-                    ((net.minecraft.server.world.ServerWorld)world).spawnParticles(
-                            net.minecraft.particle.ParticleTypes.SONIC_BOOM,
-                            player.getX(), player.getY(), player.getZ(),
-                            1, 0, 0, 0, 0
-                    );
-
-                    // 3. Sound
-                    player.playSound(net.minecraft.sound.SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, 1.0f, 1.5f);
-                }
-                return net.minecraft.util.TypedActionResult.success(stack);
+            if (world.isClient || !(stack.getItem() instanceof SwordItem)) {
+                return TypedActionResult.pass(stack);
             }
-            return net.minecraft.util.TypedActionResult.pass(stack);
-            // 1. Check for Level Up (Sneak + Right Click)
-            if (player.isSneaking() && stack.getItem() instanceof net.minecraft.item.SwordItem) {
-                // Look for a Mega Token (Gold Nugget) in inventory
-                if (player.getInventory().removeStack(player.getInventory().getSlotWithStack(new net.minecraft.item.ItemStack(net.minecraft.item.Items.GOLD_NUGGET)), 1) > 0) {
 
-                    // Get current level from NBT (default to 0)
-                    net.minecraft.nbt.NbtCompound nbt = stack.getOrCreateNbt();
-                    int currentLevel = nbt.getInt("MegaLevel");
-                    nbt.putInt("MegaLevel", currentLevel + 1);
+            // --- UPGRADE LOGIC (Sneak + Right Click) ---
+            if (player.isSneaking()) {
+                int tokenSlot = player.getInventory().getSlotWithStack(new ItemStack(net.minecraft.item.Items.GOLD_NUGGET));
 
-                    // Success Feedback
-                    player.sendMessage(net.minecraft.text.Text.literal("§6§lSWORD UPGRADED TO LEVEL " + (currentLevel + 1)), true);
-                    player.playSound(net.minecraft.sound.SoundEvents.BLOCK_ANVIL_USE, 1.0f, 1.2f);
+                if (tokenSlot != -1) {
+                    player.getInventory().removeStack(tokenSlot, 1);
+
+                    // 1.21.1 Way: Get and Set Components (Fixes image_91affc.jpg)
+                    int currentLevel = stack.getOrDefault(MEGA_LEVEL, 0);
+                    stack.set(MEGA_LEVEL, currentLevel + 1);
+
+                    player.sendMessage(Text.literal("§6§lSWORD UPGRADED TO LEVEL " + (currentLevel + 1)), true);
+                    world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BLOCK_ANVIL_USE, SoundCategory.PLAYERS, 1.0f, 1.2f);
                 } else {
-                    player.sendMessage(net.minecraft.text.Text.literal("§cYou need a Mega Token to upgrade!"), true);
+                    player.sendMessage(Text.literal("§cYou need a Mega Token (Gold Nugget) to upgrade!"), true);
                 }
-                return net.minecraft.util.TypedActionResult.success(stack);
+                return TypedActionResult.success(stack);
             }
 
-            // 2. Modified Dash (Speed scales with Level)
-            if (stack.getItem() instanceof net.minecraft.item.SwordItem && !player.isSneaking()) {
-                int level = stack.getOrCreateNbt().getInt("MegaLevel");
-                double speedMultiplier = 1.5 + (level * 0.2); // Starts at 1.5, grows by 0.2 per level
+            // --- DASH LOGIC (Normal Right Click) ---
+            else {
+                int level = stack.getOrDefault(MEGA_LEVEL, 0);
+                double power = 1.5 + (level * 0.2);
 
-                net.minecraft.util.math.Vec3d dash = player.getRotationVector().multiply(speedMultiplier, 0.2, speedMultiplier);
+                net.minecraft.util.math.Vec3d dash = player.getRotationVector().multiply(power, 0.2, power);
                 player.addVelocity(dash.x, dash.y, dash.z);
                 player.velocityModified = true;
 
-                // Standard blue particles (Sonic Boom) as requested
-                ((net.minecraft.server.world.ServerWorld)player.getWorld()).spawnParticles(
-                        net.minecraft.particle.ParticleTypes.SONIC_BOOM,
+                // Visuals: Standard blue Sonic Boom particles
+                ((ServerWorld)world).spawnParticles(
+                        ParticleTypes.SONIC_BOOM,
                         player.getX(), player.getY(), player.getZ(),
-                        1 + level, 0.2, 0.2, 0.2, 0.05
+                        1 + (level / 2), 0.2, 0.2, 0.2, 0.05
                 );
 
-                return net.minecraft.util.TypedActionResult.success(stack);
+                world.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS, 1.0f, 1.5f);
+                player.getItemCooldownManager().set(stack.getItem(), 20);
+
+                return TypedActionResult.success(stack);
             }
         });
     }
