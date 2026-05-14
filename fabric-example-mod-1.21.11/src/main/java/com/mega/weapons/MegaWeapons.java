@@ -1,3 +1,6 @@
+/*
+*  Note: All code is subject to change in the near future
+*/
 package com.mega.weapons;
 
 import net.fabricmc.api.ModInitializer;
