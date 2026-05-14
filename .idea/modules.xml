@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/fabric-example-mod-1.21.11.iml" filepath="$PROJECT_DIR$/.idea/fabric-example-mod-1.21.11.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modid.client.iml" filepath="$PROJECT_DIR$/.idea/modules/modid.client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modid.main.iml" filepath="$PROJECT_DIR$/.idea/modules/modid.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/modid.test.iml" filepath="$PROJECT_DIR$/.idea/modules/modid.test.iml" />
     </modules>
   </component>
 </project>
