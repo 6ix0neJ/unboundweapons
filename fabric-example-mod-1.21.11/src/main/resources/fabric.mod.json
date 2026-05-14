@@ -19,7 +19,7 @@
 			"com.mega.weapons.MegaWeapons"
 		],
 		"client": [
-			"com.example.client.ExampleModClient"
+			"com.mega.weapons.MegaWeaponsClient"
 		]
 	},
 	"mixins": [
