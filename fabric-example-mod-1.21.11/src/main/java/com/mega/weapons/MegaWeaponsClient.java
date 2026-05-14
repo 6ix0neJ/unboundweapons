@@ -29,7 +29,13 @@ public class MegaWeaponsClient implements ClientModInitializer {
             if (client.player != null && slamKey.wasPressed()) {
                 if (client.player.getMainHandStack().getItem() instanceof MaceItem) {
                     // Use Identifier.of for 1.21.1
-                    ClientPlayNetworking.send(Identifier.of("mega_weapons", "slam_trigger"), PacketByteBufs.create());
+                    public record SlamPayload() implements net.fabricmc.fabric.api.networking.v1.CustomPayload {
+                        public static final Id<SlamPayload> ID = new Id<>(Identifier.of("mega_weapons", "slam_trigger"));
+                        public static final net.minecraft.network.codec.PacketCodec<net.minecraft.network.PacketByteBuf, SlamPayload> CODEC = net.minecraft.network.codec.PacketCodec.unit(new SlamPayload());
+                        @Override public Id<? extends net.fabricmc.fabric.api.networking.v1.CustomPayload> getId() { return ID; }
+                    }
+
+                    //ClientPlayNetworking.send(new SlamPayload());
                 }
             }
         });
