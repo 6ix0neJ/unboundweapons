@@ -4,6 +4,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.item.MaceItem;
@@ -15,7 +16,7 @@ public class MegaWeaponsClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        // 1. Register the Keybind (Fixes 'KeyBinding' and 'KeyBindingHelper' from image_bdc73c.jpg)
+        // This clears the errors from lines 14-21 of image_bd4f99.jpg
         slamKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.mega_weapons.slam",
                 InputUtil.Type.KEYSYM,
@@ -23,12 +24,12 @@ public class MegaWeaponsClient implements ClientModInitializer {
                 "category.mega_weapons"
         ));
 
-        // 2. Client Tick Listener (Fixes 'ClientTickEvents' and 'player' from image_bdc73c.jpg)
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            // This clears the 'player' and 'wasPressed' errors from lines 27-28
             if (client.player != null && slamKey.wasPressed()) {
                 if (client.player.getMainHandStack().getItem() instanceof MaceItem) {
-                    // Send packet to server (Fixes 'ClientPlayNetworking' and 'Identifier' from image_bdc73c.jpg)
-                    ClientPlayNetworking.send(Identifier.of("mega_weapons", "slam_trigger"), net.fabricmc.fabric.api.networking.v1.PacketByteBufs.create());
+                    // Use Identifier.of for 1.21.1
+                    ClientPlayNetworking.send(Identifier.of("mega_weapons", "slam_trigger"), PacketByteBufs.create());
                 }
             }
         });
