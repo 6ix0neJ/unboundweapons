@@ -65,18 +65,21 @@ public class MegaWeapons implements ModInitializer {
             }
             return ActionResult.PASS;
         });
-        // 3. THE TOKEN ECONOMY
-        net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents.AFTER_KILLED_ENEMY_ENTITY.register((world, entity, killer) -> {
-            // This fixes the "Inconvertible types" error from image_ca09a4.png
-            if (killer instanceof net.minecraft.server.network.ServerPlayerEntity player) {
+        // 3. THE TOKEN ECONOMY (1.21.1 Compatible)
+        net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents.ENTITY_UNLOAD.register((entity, world) -> {
+            if (entity instanceof net.minecraft.entity.LivingEntity living && living.isDead()) {
+                net.minecraft.entity.damage.DamageSource source = living.getRecentDamageSource();
+                if (source != null && source.getAttacker() instanceof net.minecraft.server.network.ServerPlayerEntity player) {
 
-                // Reward: Give the Gold Nugget
-                player.getInventory().insertStack(new net.minecraft.item.ItemStack(net.minecraft.item.Items.GOLD_NUGGET));
+                    // Give Gold Nugget
+                    player.getInventory().insertStack(new net.minecraft.item.ItemStack(net.minecraft.item.Items.GOLD_NUGGET));
 
-                // Notification - Use false if 'true' still shows an error for sendMessage
-                player.sendMessage(net.minecraft.text.Text.literal("§e§l+1 MEGA TOKEN"), true);
+                    // Notification
+                    player.sendMessage(net.minecraft.text.Text.literal("§e§l+1 MEGA TOKEN"));
 
-                player.playSound(net.minecraft.sound.SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
+                    // Sound
+                    player.playSound(net.minecraft.sound.SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
+                }
             }
         });
     }
