@@ -65,6 +65,20 @@ public class MegaWeapons implements ModInitializer {
             }
             return ActionResult.PASS;
         });
+        // 3. THE TOKEN ECONOMY
+        net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents.AFTER_KILLED_ENEMY_ENTITY.register((world, entity, killer) -> {
+            // This fixes the "Inconvertible types" error from image_ca09a4.png
+            if (killer instanceof net.minecraft.server.network.ServerPlayerEntity player) {
+
+                // Reward: Give the Gold Nugget
+                player.getInventory().insertStack(new net.minecraft.item.ItemStack(net.minecraft.item.Items.GOLD_NUGGET));
+
+                // Notification - Use false if 'true' still shows an error for sendMessage
+                player.sendMessage(net.minecraft.text.Text.literal("§e§l+1 MEGA TOKEN"), true);
+
+                player.playSound(net.minecraft.sound.SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0f, 1.0f);
+            }
+        });
     }
 
     private void triggerImpact(net.minecraft.entity.player.PlayerEntity player, LivingEntity target, ServerWorld world, String type) {
