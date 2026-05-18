@@ -1,0 +1,41 @@
+{
+  "stats": {
+    "minecraft:dropped": {
+      "minecraft:white_wool": 1
+    },
+    "minecraft:custom": {
+      "minecraft:time_since_rest": 16825,
+      "minecraft:walk_one_cm": 11727,
+      "minecraft:leave_game": 3,
+      "minecraft:mob_kills": 9,
+      "minecraft:damage_dealt": 940,
+      "minecraft:play_time": 16825,
+      "minecraft:jump": 46,
+      "minecraft:time_since_death": 16825,
+      "minecraft:drop": 1,
+      "minecraft:sprint_one_cm": 15609,
+      "minecraft:total_world_time": 16825,
+      "minecraft:fly_one_cm": 12570,
+      "minecraft:sneak_time": 236
+    },
+    "minecraft:used": {
+      "minecraft:netherite_sword": 10,
+      "minecraft:pig_spawn_egg": 8,
+      "minecraft:iron_sword": 7
+    },
+    "minecraft:killed": {
+      "minecraft:pig": 5,
+      "minecraft:sheep": 2,
+      "minecraft:cow": 2
+    },
+    "minecraft:picked_up": {
+      "minecraft:porkchop": 6,
+      "minecraft:white_wool": 2,
+      "minecraft:mutton": 4,
+      "minecraft:leather": 2,
+      "minecraft:gray_wool": 1,
+      "minecraft:beef": 3
+    }
+  },
+  "DataVersion": 4671
+}

@@ -1,0 +1,13 @@
+/give @s minecraft:netherite_sword
+/gamemode s
+/gamemode survival
+/summon minecraft:zombie
+/effect give @s minecraft:regeneration infinite 50
+/summon minecraft:zombie
+/time set
+/time set day
+/hello
+/summon minecraft:iron_golem
+/summon minecraft:warden
+/give @s minecraft:diamond
+/give @s minecraft:diamond_sword

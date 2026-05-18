@@ -1,0 +1,36 @@
+{
+  "stats": {
+    "minecraft:killed": {
+      "minecraft:cow": 2
+    },
+    "minecraft:used": {
+      "minecraft:netherite_sword": 1,
+      "minecraft:diamond_sword": 4
+    },
+    "minecraft:custom": {
+      "minecraft:time_since_rest": 2728,
+      "minecraft:walk_one_cm": 5274,
+      "minecraft:leave_game": 1,
+      "minecraft:mob_kills": 2,
+      "minecraft:damage_taken": 370,
+      "minecraft:play_time": 3351,
+      "minecraft:damage_dealt": 290,
+      "minecraft:jump": 95,
+      "minecraft:time_since_death": 2664,
+      "minecraft:sprint_one_cm": 20824,
+      "minecraft:fall_one_cm": 3225,
+      "minecraft:total_world_time": 3716,
+      "minecraft:fly_one_cm": 27767,
+      "minecraft:walk_on_water_one_cm": 808,
+      "minecraft:deaths": 1
+    },
+    "minecraft:killed_by": {
+      "minecraft:warden": 1
+    },
+    "minecraft:picked_up": {
+      "minecraft:leather": 2,
+      "minecraft:beef": 6
+    }
+  },
+  "DataVersion": 4671
+}

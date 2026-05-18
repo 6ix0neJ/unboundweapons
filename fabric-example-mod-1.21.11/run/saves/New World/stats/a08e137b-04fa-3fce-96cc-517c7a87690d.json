@@ -1,0 +1,31 @@
+{
+  "stats": {
+    "minecraft:killed": {
+      "minecraft:iron_golem": 1
+    },
+    "minecraft:used": {
+      "minecraft:netherite_sword": 14
+    },
+    "minecraft:custom": {
+      "minecraft:time_since_rest": 2134,
+      "minecraft:walk_one_cm": 4106,
+      "minecraft:leave_game": 1,
+      "minecraft:mob_kills": 2,
+      "minecraft:damage_taken": 805,
+      "minecraft:play_time": 2134,
+      "minecraft:damage_dealt": 1040,
+      "minecraft:jump": 11,
+      "minecraft:time_since_death": 2134,
+      "minecraft:sprint_one_cm": 9307,
+      "minecraft:fall_one_cm": 1086,
+      "minecraft:total_world_time": 2152,
+      "minecraft:fly_one_cm": 2911
+    },
+    "minecraft:picked_up": {
+      "minecraft:poppy": 2,
+      "minecraft:arrow": 1,
+      "minecraft:iron_ingot": 3
+    }
+  },
+  "DataVersion": 4671
+}

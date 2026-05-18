@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "mcmodstest",
+  "version": "${version}",
+  "name": "Mcmodstest",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/mcmodstest/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "org.minitype.mcmodstest.MegaWeapons"
+    ],
+    "client": [
+      "org.minitype.mcmodstest.client.MegaWeaponsClient"
+    ]
+  },
+  "mixins": [
+    "mcmodstest.mixins.json",
+    {
+      "config": "mcmodstest.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

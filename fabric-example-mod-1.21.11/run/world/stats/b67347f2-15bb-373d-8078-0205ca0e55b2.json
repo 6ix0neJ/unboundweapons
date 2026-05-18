@@ -1,0 +1,33 @@
+{
+  "stats": {
+    "minecraft:used": {
+      "minecraft:wooden_sword": 14
+    },
+    "minecraft:killed": {
+      "minecraft:chicken": 3,
+      "minecraft:pig": 2,
+      "minecraft:cow": 2
+    },
+    "minecraft:custom": {
+      "minecraft:sprint_one_cm": 10186,
+      "minecraft:time_since_rest": 23363,
+      "minecraft:walk_one_cm": 7183,
+      "minecraft:total_world_time": 23363,
+      "minecraft:fly_one_cm": 10856,
+      "minecraft:mob_kills": 7,
+      "minecraft:sneak_time": 15,
+      "minecraft:play_time": 23363,
+      "minecraft:damage_dealt": 431,
+      "minecraft:jump": 42,
+      "minecraft:time_since_death": 23363
+    },
+    "minecraft:picked_up": {
+      "minecraft:egg": 2,
+      "minecraft:porkchop": 3,
+      "minecraft:feather": 4,
+      "minecraft:chicken": 3,
+      "minecraft:beef": 1
+    }
+  },
+  "DataVersion": 4671
+}

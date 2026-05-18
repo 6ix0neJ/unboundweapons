@@ -1,0 +1,27 @@
+{
+  "stats": {
+    "minecraft:custom": {
+      "minecraft:interact_with_crafting_table": 1,
+      "minecraft:sprint_one_cm": 1175,
+      "minecraft:time_since_rest": 5739,
+      "minecraft:walk_one_cm": 884,
+      "minecraft:total_world_time": 5739,
+      "minecraft:fly_one_cm": 332,
+      "minecraft:play_time": 5739,
+      "minecraft:jump": 2,
+      "minecraft:time_since_death": 5739
+    },
+    "minecraft:mined": {
+      "minecraft:birch_log": 2
+    },
+    "minecraft:picked_up": {
+      "minecraft:birch_log": 2
+    },
+    "minecraft:crafted": {
+      "minecraft:stick": 4,
+      "minecraft:wooden_sword": 1,
+      "minecraft:birch_planks": 8
+    }
+  },
+  "DataVersion": 4671
+}
